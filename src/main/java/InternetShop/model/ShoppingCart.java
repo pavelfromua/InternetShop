@@ -1,13 +1,13 @@
-package iShop.model;
+package InternetShop.model;
 
 import java.util.List;
 
-public class Order {
+public class ShoppingCart {
     private Long id;
     private List<Product> products;
     private Long userId;
 
-    public Order(List<Product> products, Long userId) {
+    public ShoppingCart(List<Product> products, Long userId) {
         this.products = products;
         this.userId = userId;
     }

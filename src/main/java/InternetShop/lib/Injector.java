@@ -1,4 +1,4 @@
-package iShop.lib;
+package InternetShop.lib;
 
 import java.io.File;
 import java.io.IOException;

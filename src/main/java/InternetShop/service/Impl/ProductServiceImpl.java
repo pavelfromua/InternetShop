@@ -1,11 +1,10 @@
-package iShop.service.Impl;
+package InternetShop.service.Impl;
 
-import iShop.dao.Impl.ProductDaoImpl;
-import iShop.dao.ProductDao;
-import iShop.lib.Inject;
-import iShop.lib.Service;
-import iShop.model.Product;
-import iShop.service.ProductService;
+import InternetShop.dao.ProductDao;
+import InternetShop.lib.Inject;
+import InternetShop.lib.Service;
+import InternetShop.model.Product;
+import InternetShop.service.ProductService;
 import java.util.List;
 
 @Service

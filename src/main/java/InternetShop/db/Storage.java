@@ -1,10 +1,9 @@
-package iShop.db;
+package InternetShop.db;
 
-import iShop.model.Order;
-import iShop.model.Product;
-import iShop.model.ShoppingCart;
-import iShop.model.User;
-
+import InternetShop.model.Order;
+import InternetShop.model.Product;
+import InternetShop.model.ShoppingCart;
+import InternetShop.model.User;
 import java.util.ArrayList;
 import java.util.List;
 

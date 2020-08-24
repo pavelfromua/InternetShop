@@ -1,13 +1,12 @@
-package iShop.dao;
+package InternetShop.service;
 
-import iShop.model.Product;
+import InternetShop.model.Product;
 import java.util.List;
-import java.util.Optional;
 
-public interface ProductDao {
+public interface ProductService {
     Product create(Product product);
 
-    Optional<Product> get(Long id);
+    Product get(Long id);
 
     List<Product> getAll();
 
