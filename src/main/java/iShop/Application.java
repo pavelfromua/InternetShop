@@ -16,6 +16,7 @@ public class Application {
         productService.create(xiaomiMi9);
         productService.getAll().forEach(System.out::println);
 
+
         xiaomiMi9.setPrice(10000);
         productService.update(xiaomiMi9);
         productService.getAll().forEach(System.out::println);
