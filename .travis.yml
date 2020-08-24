@@ -1,8 +1,8 @@
 language: java
-  jdk:
-    - openjdk11
-  script:
-    - mvn clean install
-  cache:
-    directories:
-      - $HOME/.m2
+jdk:
+  - openjdk11
+script:
+  - mvn clean install
+cache:
+  directories:
+    - $HOME/.m2
