@@ -1,4 +1,4 @@
-package internetshop.dao.Impl;
+package internetshop.dao.impl;
 
 import internetshop.dao.ProductDao;
 import internetshop.db.Storage;
