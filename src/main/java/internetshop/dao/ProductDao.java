@@ -1,6 +1,6 @@
-package InternetShop.dao;
+package internetshop.dao;
 
-import InternetShop.model.Product;
+import internetshop.model.Product;
 import java.util.List;
 import java.util.Optional;
 

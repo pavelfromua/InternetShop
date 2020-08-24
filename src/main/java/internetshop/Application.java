@@ -1,12 +1,12 @@
-package InternetShop;
+package internetshop;
 
-import InternetShop.lib.Injector;
-import InternetShop.model.Product;
-import InternetShop.service.ProductService;
+import internetshop.lib.Injector;
+import internetshop.model.Product;
+import internetshop.service.ProductService;
 
 public class Application {
     public static void main(String[] args) {
-        Injector injector = Injector.getInstance("InternetShop");
+        Injector injector = Injector.getInstance("internetshop");
         ProductService productService = (ProductService) injector.getInstance(ProductService.class);
 
         Product xiaomiMi8 = new Product("Mi 8", 4000);

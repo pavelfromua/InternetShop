@@ -1,9 +1,9 @@
-package InternetShop.dao.Impl;
+package internetshop.dao.Impl;
 
-import InternetShop.dao.ProductDao;
-import InternetShop.db.Storage;
-import InternetShop.lib.Dao;
-import InternetShop.model.Product;
+import internetshop.dao.ProductDao;
+import internetshop.db.Storage;
+import internetshop.lib.Dao;
+import internetshop.model.Product;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;

@@ -1,4 +1,4 @@
-package InternetShop.model;
+package internetshop.model;
 
 public class User {
     private Long id;

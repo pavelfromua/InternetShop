@@ -1,4 +1,4 @@
-package InternetShop.lib;
+package internetshop.lib;
 
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
