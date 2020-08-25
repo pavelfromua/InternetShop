@@ -23,4 +23,16 @@ public class ShoppingCart {
     public void setUserId(Long userId) {
         this.userId = userId;
     }
+
+    public Long getId() {
+        return id;
+    }
+
+    public List<Product> getProducts() {
+        return products;
+    }
+
+    public Long getUserId() {
+        return userId;
+    }
 }
