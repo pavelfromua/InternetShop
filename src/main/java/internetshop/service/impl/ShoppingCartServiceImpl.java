@@ -6,6 +6,7 @@ import internetshop.lib.Service;
 import internetshop.model.Product;
 import internetshop.model.ShoppingCart;
 import internetshop.service.ShoppingCartService;
+import java.util.List;
 
 @Service
 public class ShoppingCartServiceImpl implements ShoppingCartService {
@@ -18,13 +19,49 @@ public class ShoppingCartServiceImpl implements ShoppingCartService {
     }
 
     @Override
+    public ShoppingCart get(Long id) {
+        ShoppingCart cart = cartDao.get(id).get();
+        if (cart != null) {
+            try {
+                cart = cart.clone();
+            } catch (CloneNotSupportedException e) {
+                e.printStackTrace();
+            }
+        }
+
+        return cart;
+    }
+
+    @Override
+    public List<ShoppingCart> getAll() {
+        return cartDao.getAll();
+    }
+
+    @Override
+    public ShoppingCart update(ShoppingCart shoppingCart) {
+        return cartDao.update(shoppingCart);
+    }
+
+    @Override
+    public boolean delete(Long id) {
+        return cartDao.delete(id);
+    }
+
+    @Override
     public ShoppingCart addProduct(ShoppingCart shoppingCart, Product product) {
-        return cartDao.addProduct(shoppingCart, product);
+        shoppingCart.getProducts().add(product);
+
+        return cartDao.update(shoppingCart);
     }
 
     @Override
     public boolean deleteProduct(ShoppingCart shoppingCart, Product product) {
-        return cartDao.deleteProduct(shoppingCart, product);
+        boolean isRemoved = shoppingCart.getProducts().removeIf(p -> p.getId() == product.getId());
+
+        if (isRemoved) {
+            cartDao.update(shoppingCart);
+        }
+        return isRemoved;
     }
 
     @Override
@@ -39,6 +76,8 @@ public class ShoppingCartServiceImpl implements ShoppingCartService {
 
     @Override
     public boolean delete(ShoppingCart shoppingCart) {
-        return cartDao.delete(shoppingCart);
+        clear(shoppingCart);
+
+        return cartDao.delete(shoppingCart.getId());
     }
 }

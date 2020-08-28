@@ -1,6 +1,6 @@
 package internetshop.model;
 
-public class Product {
+public class Product implements Cloneable {
     private long id;
     private String name;
     private double price;
@@ -41,5 +41,10 @@ public class Product {
                 + ", name='" + name + '\''
                 + ", price=" + price
                 + '}';
+    }
+
+    @Override
+    public Product clone() throws CloneNotSupportedException {
+        return (Product) super.clone();
     }
 }

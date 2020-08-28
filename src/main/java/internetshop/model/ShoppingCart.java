@@ -1,8 +1,9 @@
 package internetshop.model;
 
+import java.util.ArrayList;
 import java.util.List;
 
-public class ShoppingCart {
+public class ShoppingCart implements Cloneable {
     private Long id;
     private List<Product> products;
     private Long userId;
@@ -34,5 +35,27 @@ public class ShoppingCart {
 
     public Long getUserId() {
         return userId;
+    }
+
+    @Override
+    public String toString() {
+        return "ShoppingCart{" +
+                "id=" + id +
+                ", products=" + products +
+                ", userId=" + userId +
+                '}';
+    }
+
+    @Override
+    public ShoppingCart clone() throws CloneNotSupportedException {
+        List<Product> productsClone = new ArrayList<Product>(products.size());
+        for (Product product: products) {
+            productsClone.add(product);
+        }
+
+        ShoppingCart cart = new ShoppingCart(productsClone, userId);
+        cart.setId(id);
+
+        return cart;
     }
 }

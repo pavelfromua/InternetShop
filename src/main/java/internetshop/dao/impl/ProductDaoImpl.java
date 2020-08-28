@@ -19,8 +19,7 @@ public class ProductDaoImpl implements ProductDao {
 
     @Override
     public Optional<Product> get(Long id) {
-        return Optional.ofNullable(Storage.products.stream().filter(p -> p.getId() == id).findAny()
-                .orElse(null));
+        return Storage.products.stream().filter(p -> p.getId() == id).findFirst();
     }
 
     @Override
@@ -35,7 +34,16 @@ public class ProductDaoImpl implements ProductDao {
             p.setPrice(product.getPrice());
         });
 
-        return product;
+        try {
+            Product obj = get(product.getId()).get();
+            if (obj == null) {
+                return product;
+            } else {
+                return obj.clone();
+            }
+        } catch (CloneNotSupportedException e) {
+            return product;
+        }
     }
 
     @Override

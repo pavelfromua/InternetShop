@@ -1,6 +1,6 @@
 package internetshop.model;
 
-public class User {
+public class User implements Cloneable {
     private Long id;
     private String name;
     private String login;
@@ -42,5 +42,20 @@ public class User {
 
     public String getPassword() {
         return password;
+    }
+
+    @Override
+    public String toString() {
+        return "User{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", login='" + login + '\'' +
+                ", password='" + password + '\'' +
+                '}';
+    }
+
+    @Override
+    public User clone() throws CloneNotSupportedException {
+        return (User) super.clone();
     }
 }

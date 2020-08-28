@@ -1,8 +1,11 @@
 package internetshop.dao.impl;
 
+import internetshop.dao.OrderDao;
+import internetshop.dao.ShoppingCartDao;
 import internetshop.dao.UserDao;
 import internetshop.db.Storage;
 import internetshop.lib.Dao;
+import internetshop.lib.Inject;
 import internetshop.model.User;
 import java.util.List;
 import java.util.Optional;
@@ -10,6 +13,12 @@ import java.util.stream.Collectors;
 
 @Dao
 public class UserDaoImpl implements UserDao {
+    @Inject
+    OrderDao orderDao;
+
+    @Inject
+    ShoppingCartDao cartDao;
+
     @Override
     public User create(User user) {
         Storage.addUser(user);
@@ -19,8 +28,7 @@ public class UserDaoImpl implements UserDao {
 
     @Override
     public Optional<User> get(Long id) {
-        return Optional.ofNullable(Storage.users.stream().filter(u -> u.getId() == id).findAny()
-                .orElse(null));
+        return Storage.users.stream().filter(u -> u.getId() == id).findFirst();
     }
 
     @Override
@@ -36,11 +44,23 @@ public class UserDaoImpl implements UserDao {
             u.setPassword(user.getPassword());
         });
 
-        return user;
+        try {
+            User obj = get(user.getId()).get();
+            if (obj == null) {
+                return user;
+            } else {
+                return obj.clone();
+            }
+        } catch (CloneNotSupportedException e) {
+            return user;
+        }
     }
 
     @Override
     public boolean delete(Long id) {
+        orderDao.getUserOrders(id).forEach(o -> orderDao.delete(o.getId()));
+        cartDao.getByUserId(id).stream().forEach(s -> cartDao.delete(s.getId()));
+
         return Storage.users.removeIf(u -> u.getId() == id);
     }
 }

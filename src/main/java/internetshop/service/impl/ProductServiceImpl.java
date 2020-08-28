@@ -19,7 +19,16 @@ public class ProductServiceImpl implements ProductService {
 
     @Override
     public Product get(Long id) {
-        return productDao.get(id).get();
+        Product product = productDao.get(id).get();
+        if (product != null) {
+            try {
+                product = product.clone();
+            } catch (CloneNotSupportedException e) {
+                e.printStackTrace();
+            }
+        }
+
+        return product;
     }
 
     @Override

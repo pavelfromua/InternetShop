@@ -20,21 +20,37 @@ public class Storage {
 
     public static void addProduct(Product product) {
         product.setId(++productId);
-        products.add(product);
+        try {
+            products.add(product.clone());
+        } catch (CloneNotSupportedException e) {
+            e.printStackTrace();
+        }
     }
 
     public static void addUser(User user) {
         user.setId(++userId);
-        users.add(user);
+        try {
+            users.add(user.clone());
+        } catch (CloneNotSupportedException e) {
+            e.printStackTrace();
+        }
     }
 
     public static void addOrder(Order order) {
         order.setId(++orderId);
-        orders.add(order);
+        try {
+            orders.add(order.clone());
+        } catch (CloneNotSupportedException e) {
+            e.printStackTrace();
+        }
     }
 
     public static void addShoppingCart(ShoppingCart shoppingCart) {
         shoppingCart.setId(++shoppingCartId);
-        shoppingCarts.add(shoppingCart);
+        try {
+            shoppingCarts.add(shoppingCart.clone());
+        } catch (CloneNotSupportedException e) {
+            e.printStackTrace();
+        }
     }
 }
