@@ -6,6 +6,7 @@ import internetshop.dao.UserDao;
 import internetshop.db.Storage;
 import internetshop.lib.Dao;
 import internetshop.lib.Inject;
+import internetshop.model.ShoppingCart;
 import internetshop.model.User;
 import java.util.List;
 import java.util.Optional;
@@ -59,7 +60,11 @@ public class UserDaoImpl implements UserDao {
     @Override
     public boolean delete(Long id) {
         orderDao.getUserOrders(id).forEach(o -> orderDao.delete(o.getId()));
-        cartDao.getByUserId(id).stream().forEach(s -> cartDao.delete(s.getId()));
+
+        ShoppingCart cart = cartDao.getByUserId(id).get();
+        if (cart != null) {
+            cartDao.delete(cart.getId());
+        }
 
         return Storage.users.removeIf(u -> u.getId() == id);
     }

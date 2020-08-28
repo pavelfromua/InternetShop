@@ -17,6 +17,11 @@
          <maven.checkstyle.plugin.configLocation>
              https://raw.githubusercontent.com/mate-academy/style-guides/master/java/checkstyle.xml
          </maven.checkstyle.plugin.configLocation>
+         <maven-compiler-plugin.version>3.8.0</maven-compiler-plugin.version>
+         <maven.compiler.source>1.8</maven.compiler.source>
+         <maven.compiler.target>1.8</maven.compiler.target>
+         <maven.compiler.parameters>true</maven.compiler.parameters>
+         <maven.compiler.verbose>true</maven.compiler.verbose>
      </properties>
 
      <dependencies>
@@ -102,14 +107,8 @@
         <pluginManagement>
             <plugins>
                 <plugin>
-                    <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-compiler-plugin</artifactId>
-                    <version>3.8.0</version>
-                    <configuration>
-                        <source>${jdk.version}</source>
-                        <target>${jdk.version}</target>
-                        <encoding>${project.build.sourceEncoding}</encoding>
-                    </configuration>
+                    <version>${maven-compiler-plugin.version}</version>
                 </plugin>
             </plugins>
         </pluginManagement>
