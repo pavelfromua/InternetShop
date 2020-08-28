@@ -8,25 +8,18 @@ import internetshop.service.OrderService;
 import internetshop.service.ProductService;
 import internetshop.service.ShoppingCartService;
 import internetshop.service.UserService;
-
 import java.util.ArrayList;
 
 public class Application {
     public static void main(String[] args) {
-        Injector injector = Injector.getInstance("internetshop");
-
-        ProductService productService = (ProductService) injector
-                .getInstance(ProductService.class);
-        UserService userService = (UserService) injector
-                .getInstance(UserService.class);
-        ShoppingCartService cartService = (ShoppingCartService) injector
-                .getInstance(ShoppingCartService.class);
-        OrderService orderService = (OrderService) injector
-                .getInstance(OrderService.class);
-
         // users
         User admin = new User("Admin", "admin", "123");
         User customer = new User("Customer", "customer", "111");
+
+        Injector injector = Injector.getInstance("internetshop");
+
+        UserService userService = (UserService) injector
+                .getInstance(UserService.class);
 
         userService.create(admin);
         userService.create(customer);
@@ -37,6 +30,9 @@ public class Application {
         // products
         Product xiaomiMi8 = new Product("Mi 8", 4000);
         Product xiaomiMi9 = new Product("Mi 9", 7000);
+
+        ProductService productService = (ProductService) injector
+                .getInstance(ProductService.class);
 
         productService.create(xiaomiMi8);
         productService.create(xiaomiMi9);
@@ -53,6 +49,9 @@ public class Application {
         System.out.println();
 
         // shopping carts
+        ShoppingCartService cartService = (ShoppingCartService) injector
+                .getInstance(ShoppingCartService.class);
+
         ShoppingCart shoppingCart;
         shoppingCart = new ShoppingCart(new ArrayList<Product>(), admin.getId());
         shoppingCart = cartService.create(shoppingCart);
@@ -60,14 +59,12 @@ public class Application {
         shoppingCart = cartService.addProduct(shoppingCart, xiaomiMi9);
         shoppingCart = cartService.addProduct(shoppingCart, xiaomiMi8);
 
-        System.out.println("before deleting");
         cartService.getAll().forEach(System.out::println);
         System.out.println();
 
-        shoppingCart.getProducts().clear();
-        cartService.getAll().forEach(System.out::println);
-        System.out.println();
+        OrderService orderService = (OrderService) injector
+                .getInstance(OrderService.class);
 
-        System.out.println(shoppingCart);
+        orderService.completeOrder(shoppingCart);
     }
 }

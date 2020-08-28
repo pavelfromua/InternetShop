@@ -42,7 +42,6 @@ public class ShoppingCartServiceImpl implements ShoppingCartService {
         return cartDao.update(shoppingCart);
     }
 
-    @Override
     public boolean delete(Long id) {
         return cartDao.delete(id);
     }
