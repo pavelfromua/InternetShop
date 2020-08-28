@@ -48,28 +48,26 @@ public class Application {
         productService.getAll().forEach(System.out::println);
         System.out.println();
 
-        //productService.delete(xiaomiMi8.getId());
+        productService.delete(xiaomiMi8.getId());
         productService.getAll().forEach(System.out::println);
         System.out.println();
 
         // shopping carts
-        ShoppingCart shoppingCart2;
-        shoppingCart2 = new ShoppingCart(new ArrayList<Product>(), admin.getId());
-        shoppingCart2 = cartService.create(shoppingCart2);
+        ShoppingCart shoppingCart;
+        shoppingCart = new ShoppingCart(new ArrayList<Product>(), admin.getId());
+        shoppingCart = cartService.create(shoppingCart);
 
-        shoppingCart2 = cartService.addProduct(shoppingCart2, xiaomiMi9);
-        shoppingCart2 = cartService.addProduct(shoppingCart2, xiaomiMi8);
+        shoppingCart = cartService.addProduct(shoppingCart, xiaomiMi9);
+        shoppingCart = cartService.addProduct(shoppingCart, xiaomiMi8);
 
-//        shoppingCart = new ShoppingCart(new ArrayList<Product>(), customer.getId());
-//        cartService.create(shoppingCart);
         System.out.println("before deleting");
         cartService.getAll().forEach(System.out::println);
         System.out.println();
 
-        shoppingCart2.getProducts().clear();
+        shoppingCart.getProducts().clear();
         cartService.getAll().forEach(System.out::println);
         System.out.println();
 
-        System.out.println(shoppingCart2);
+        System.out.println(shoppingCart);
     }
 }

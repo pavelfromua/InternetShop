@@ -39,11 +39,11 @@ public class ShoppingCart implements Cloneable {
 
     @Override
     public String toString() {
-        return "ShoppingCart{" +
-                "id=" + id +
-                ", products=" + products +
-                ", userId=" + userId +
-                '}';
+        return "ShoppingCart{"
+                + "id=" + id
+                + ", products=" + products
+                + ", userId=" + userId
+                + '}';
     }
 
     @Override

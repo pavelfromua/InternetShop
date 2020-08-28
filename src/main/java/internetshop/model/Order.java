@@ -39,11 +39,11 @@ public class Order {
 
     @Override
     public String toString() {
-        return "Order{" +
-                "id=" + id +
-                ", products=" + products +
-                ", userId=" + userId +
-                '}';
+        return "Order{"
+                + "id=" + id
+                + ", products=" + products
+                + ", userId=" + userId
+                + '}';
     }
 
     @Override
