@@ -20,8 +20,6 @@
          <maven-compiler-plugin.version>3.8.0</maven-compiler-plugin.version>
          <maven.compiler.source>1.8</maven.compiler.source>
          <maven.compiler.target>1.8</maven.compiler.target>
-         <maven.compiler.parameters>true</maven.compiler.parameters>
-         <maven.compiler.verbose>true</maven.compiler.verbose>
      </properties>
 
      <dependencies>
@@ -51,6 +49,12 @@
              <groupId>mysql</groupId>
              <artifactId>mysql-connector-java</artifactId>
              <version>8.0.20</version>
+         </dependency>
+         <dependency>
+             <groupId>org.apache.maven.plugins</groupId>
+             <artifactId>maven-war-plugin</artifactId>
+             <version>2.2</version>
+             <type>maven-plugin</type>
          </dependency>
      </dependencies>
      <build>
