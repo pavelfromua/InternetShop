@@ -8,6 +8,8 @@ public interface ShoppingCartService extends GenericService<ShoppingCart, Long> 
 
     boolean deleteProduct(ShoppingCart shoppingCart, Product product);
 
+    boolean deleteProductByRow(ShoppingCart shoppingCart, Product product, Long rowNumber);
+
     void clear(ShoppingCart shoppingCart); //remove all products from the shoppingCart
 
     ShoppingCart getByUserId(Long userId);

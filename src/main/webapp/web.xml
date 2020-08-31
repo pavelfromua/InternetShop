@@ -57,7 +57,7 @@
 
     <servlet>
         <servlet-name>displayDB</servlet-name>
-        <servlet-class>internetshop.controllers.DisplayAllDBController</servlet-class>
+        <servlet-class>internetshop.controllers.DisplayAllDbController</servlet-class>
     </servlet>
 
     <servlet-mapping>
@@ -123,5 +123,65 @@
     <servlet-mapping>
         <servlet-name>cart</servlet-name>
         <url-pattern>/cart</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>deleteFromCart</servlet-name>
+        <servlet-class>internetshop.controllers.DeleteFromCartController</servlet-class>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>deleteFromCart</servlet-name>
+        <url-pattern>/cart/delete</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>addOrder</servlet-name>
+        <servlet-class>internetshop.controllers.AddOrderController</servlet-class>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>addOrder</servlet-name>
+        <url-pattern>/orders/add</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>userOrders</servlet-name>
+        <servlet-class>internetshop.controllers.UserOrderController</servlet-class>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>userOrders</servlet-name>
+        <url-pattern>/orders/userorders</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>orderDetails</servlet-name>
+        <servlet-class>internetshop.controllers.OrderDetailsController</servlet-class>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>orderDetails</servlet-name>
+        <url-pattern>/order/details</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>adminOrders</servlet-name>
+        <servlet-class>internetshop.controllers.AdminOrderController</servlet-class>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>adminOrders</servlet-name>
+        <url-pattern>/orders/admin/orders</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>deleteOrder</servlet-name>
+        <servlet-class>internetshop.controllers.DeleteOrderController</servlet-class>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>deleteOrder</servlet-name>
+        <url-pattern>/orders/admin/delete</url-pattern>
     </servlet-mapping>
 </web-app>

@@ -60,6 +60,30 @@ public class ShoppingCartServiceImpl implements ShoppingCartService {
     }
 
     @Override
+    public boolean deleteProductByRow(ShoppingCart shoppingCart, Product product, Long rowNumber) {
+        boolean isRemoved = false;
+
+        if (rowNumber != null) {
+            List<Product> list = shoppingCart.getProducts();
+
+            for (int i = 0; i < list.size(); i++) {
+                if (product.getId() == list.get(i).getId()) {
+                    if (rowNumber == i) {
+                        shoppingCart.getProducts().remove(i);
+                        isRemoved = true;
+                        break;
+                    }
+                }
+            }
+        }
+
+        if (isRemoved) {
+            cartDao.update(shoppingCart);
+        }
+        return isRemoved;
+    }
+
+    @Override
     public void clear(ShoppingCart shoppingCart) {
         cartDao.clear(shoppingCart);
     }
