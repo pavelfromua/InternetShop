@@ -61,8 +61,9 @@ public class UserDaoImpl implements UserDao {
     public boolean delete(Long id) {
         orderDao.getUserOrders(id).forEach(o -> orderDao.delete(o.getId()));
 
-        ShoppingCart cart = cartDao.getByUserId(id).get();
-        if (cart != null) {
+        Optional<ShoppingCart> optionalShoppingCart = cartDao.getByUserId(id);
+        if (optionalShoppingCart.isPresent()) {
+            ShoppingCart cart = cartDao.getByUserId(id).get();
             cartDao.delete(cart.getId());
         }
 
