@@ -7,9 +7,12 @@ import internetshop.model.Product;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
+import org.apache.log4j.Logger;
 
 @Dao
 public class ProductDaoImpl implements ProductDao {
+    static final Logger logger = Logger.getLogger(ProductDaoImpl.class);
+
     @Override
     public Product create(Product product) {
         Storage.addProduct(product);
@@ -37,11 +40,15 @@ public class ProductDaoImpl implements ProductDao {
         try {
             Product obj = get(product.getId()).get();
             if (obj == null) {
+                logger.info("Product by " + product.getId()
+                        + "isn't gotten from db");
                 return product;
             } else {
+                logger.info(obj + " is cloned");
                 return obj.clone();
             }
         } catch (CloneNotSupportedException e) {
+            logger.error("This is error : " + e.getMessage());
             return product;
         }
     }

@@ -11,9 +11,12 @@ import internetshop.model.User;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
+import org.apache.log4j.Logger;
 
 @Dao
 public class UserDaoImpl implements UserDao {
+    static final Logger logger = Logger.getLogger(UserDaoImpl.class);
+
     @Inject
     OrderDao orderDao;
 
@@ -48,11 +51,15 @@ public class UserDaoImpl implements UserDao {
         try {
             User obj = get(user.getId()).get();
             if (obj == null) {
+                logger.info("User by " + user.getId()
+                        + "isn't gotten from db");
                 return user;
             } else {
+                logger.info(obj + " is cloned");
                 return obj.clone();
             }
         } catch (CloneNotSupportedException e) {
+            logger.error("This is error : " + e.getMessage());
             return user;
         }
     }

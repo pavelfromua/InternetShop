@@ -3,7 +3,7 @@ package internetshop.model;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Order {
+public class Order implements Cloneable {
     private Long id;
     private List<Product> products;
     private Long userId;

@@ -9,9 +9,12 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
+import org.apache.log4j.Logger;
 
 @Dao
 public class OrderDaoImpl implements OrderDao {
+    static final Logger logger = Logger.getLogger(OrderDaoImpl.class);
+
     @Override
     public Order create(Order order) {
         Storage.addOrder(order);
@@ -43,11 +46,15 @@ public class OrderDaoImpl implements OrderDao {
         try {
             Order obj = get(order.getId()).get();
             if (obj == null) {
+                logger.info("Order by " + order.getId()
+                        + "isn't gotten from db");
                 return order;
             } else {
+                logger.info(obj + " is cloned");
                 return obj.clone();
             }
         } catch (CloneNotSupportedException e) {
+            logger.error("This is error : " + e);
             return order;
         }
     }

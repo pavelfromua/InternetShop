@@ -9,9 +9,12 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
+import org.apache.log4j.Logger;
 
 @Dao
 public class ShoppingCartDaoImpl implements ShoppingCartDao {
+    static final Logger logger = Logger.getLogger(ShoppingCartDaoImpl.class);
+
     @Override
     public ShoppingCart create(ShoppingCart shoppingCart) {
         Storage.addShoppingCart(shoppingCart);
@@ -43,11 +46,15 @@ public class ShoppingCartDaoImpl implements ShoppingCartDao {
         try {
             ShoppingCart obj = get(shoppingCart.getId()).get();
             if (obj == null) {
+                logger.info("Shopping cart by " + shoppingCart.getId()
+                        + "isn't gotten from db");
                 return shoppingCart;
             } else {
+                logger.info(obj + " is cloned");
                 return obj.clone();
             }
         } catch (CloneNotSupportedException e) {
+            logger.error("This is error : " + e.getMessage());
             return shoppingCart;
         }
     }
