@@ -9,14 +9,10 @@
 <html>
 <head>
     <title>Demo</title>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-
-    <!-- Bootstrap CSS -->
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+    <jsp:include page="./style.jsp"/>
 </head>
-<jsp:include page="header.jsp"/>
+<jsp:include page="./header.jsp"/>
 <body>
-<h1>Your mock data was added to DB</h1>
+<h2 style="color: cadetblue">Your mock data was added to DB</h2>
 </body>
 </html>

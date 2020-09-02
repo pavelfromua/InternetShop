@@ -9,14 +9,10 @@
 <html>
 <head>
     <title>Registration</title>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-
-    <!-- Bootstrap CSS -->
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+    <jsp:include page="./style.jsp"/>
 </head>
 <body>
-<jsp:include page="header.jsp"/>
+<jsp:include page="./header.jsp"/>
 <form method="post" action="${pageContext.request.contextPath}/registration">
     <table border="0">
         <tr>
@@ -26,16 +22,19 @@
             <td>Login:</td><td><input type="text" name="login" value="${login}"></td>
         </tr>
         <tr>
+            <td colspan="2" style="color: red; font-size: small">${messageLogin}</td>
+        </tr>
+        <tr>
             <td>Password:</td><td><input type="password" name="password"></td>
         </tr>
         <tr>
-            <td>Confirm assword:</td><td><input type="password" name="cpassword"></td>
+            <td>Confirm password:</td><td><input type="password" name="cpassword"></td>
         </tr>
         <tr>
-            <td colspan="2" align="center"><h4 style="color: red">${message}</h4></td>
+            <td colspan="2" style="color: red; font-size: small">${messagePassword}</td>
         </tr>
         <tr>
-            <td colspan="2" align="center"><button type="submit" name="reristration">Register</button> </td>
+            <td colspan="2" align="right"><button type="submit" name="reristration" class="btn btn-sm btn-primary">Register</button> </td>
         </tr>
     </table>
 </form>

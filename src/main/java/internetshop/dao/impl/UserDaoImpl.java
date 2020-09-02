@@ -76,4 +76,10 @@ public class UserDaoImpl implements UserDao {
 
         return Storage.users.removeIf(u -> u.getId() == id);
     }
+
+    @Override
+    public boolean isPresent(String login) {
+        long count = Storage.users.stream().filter(u -> u.getLogin().equals(login)).count();
+        return count == 0 ? false : true;
+    }
 }

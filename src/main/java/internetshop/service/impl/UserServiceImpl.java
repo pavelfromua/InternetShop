@@ -36,4 +36,8 @@ public class UserServiceImpl implements UserService {
     public boolean delete(Long id) {
         return userDao.delete(id);
     }
+
+    public boolean isPresent(String login) {
+        return userDao.isPresent(login);
+    }
 }

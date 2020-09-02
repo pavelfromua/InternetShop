@@ -10,43 +10,52 @@
 <html>
 <head>
     <title>All products</title>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-
-    <!-- Bootstrap CSS -->
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+    <jsp:include page="../style.jsp"/>
 </head>
 <body>
-<h1>All products page</h1>
-
-<table border="1">
+<jsp:include page="../header.jsp"/>
+<h2 style="color: cadetblue">All products page</h2>
+<table>
     <tr>
-        <th>ID</th>
-        <th>Name</th>
-        <th>Price</th>
-        <th></th>
+        <td>
+            <table border="1">
+                <tr>
+                    <th>№</th>
+                    <th>Name</th>
+                    <th>Price</th>
+                    <th>Action</th>
+                </tr>
+                <c:forEach var="product" items="${catalog}" varStatus="i">
+                    <tr>
+                        <td>
+                            <c:out value="${i.index + 1}"/>
+                        </td>
+                        <td>
+                            <c:out value="${product.name}"/>
+                        </td>
+                        <td>
+                            <c:out value="${product.price}"/>
+                        </td>
+                        <td>
+                            <a href="${pageContext.request.contextPath}/cart/add?id=${product.id}">Add cart</a>
+                        </td>
+                    </tr>
+                </c:forEach>
+            </table>
+        </td>
     </tr>
-    <c:forEach var="product" items="${catalog}">
-        <tr>
-            <td>
-                <c:out value="${product.id}"/>
-            </td>
-            <td>
-                <c:out value="${product.name}"/>
-            </td>
-            <td>
-                <c:out value="${product.price}"/>
-            </td>
-            <td>
-                <a href="${pageContext.request.contextPath}/cart/add?id=${product.id}">Add cart</a>
-            </td>
-        </tr>
-    </c:forEach>
+    <tr>
+        <td>
+            <c:if test="${message != ''}">
+                ${message}
+            </c:if>
+        </td>
+    </tr>
+    <tr>
+        <td>
+            <a href="${pageContext.request.contextPath}/cart">Go shopping cart</a>
+        </td>
+    </tr>
 </table>
-
-${message} <br>
-
-<a href="${pageContext.request.contextPath}/">Go home page</a>
-<a href="${pageContext.request.contextPath}/cart">Go shopping cart</a>
 </body>
 </html>

@@ -24,7 +24,7 @@ public class ProductController extends HttpServlet {
         String id = req.getParameter("id");
         if (id != null && !id.isEmpty()) {
             req.setAttribute("message", "Product " + productService.get(Long.valueOf(id))
-                    + " is added the cart");
+                    .getName() + " is added the cart");
         }
 
         req.getRequestDispatcher("/WEB-INF/views/products/catalog.jsp").forward(req, resp);

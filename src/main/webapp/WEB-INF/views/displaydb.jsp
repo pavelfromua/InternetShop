@@ -10,16 +10,15 @@
 <html>
 <head>
     <title>All DB</title>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-
-    <!-- Bootstrap CSS -->
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+    <jsp:include page="./style.jsp"/>
 </head>
 <body>
-<h1>DB tables</h1>
+<jsp:include page="./header.jsp"/>
+
+<h2 style="color: cadetblue">DB tables</h2>
+
 <c:forEach items="${tables}" var="entry">
-    <h1>${entry.key}</h1>
+    <h2 style="color: gray">${entry.key}</h2>
     <table border="1">
         <tr>
             <c:if test="${entry.key.equals('Products')}">
@@ -72,7 +71,5 @@
     </table>
     <br>
 </c:forEach>
-
-<a href="${pageContext.request.contextPath}/">Go home page</a>
 </body>
 </html>

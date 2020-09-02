@@ -34,7 +34,24 @@ public class RegistrationController extends HttpServlet {
         String password = req.getParameter("password");
         String confirmPassword = req.getParameter("cpassword");
 
-        if (confirmPassword.equals(password)) {
+        boolean isChecked = true;
+
+        if (!confirmPassword.equals(password)) {
+            isChecked = false;
+            req.setAttribute("messagePassword", "Unequal with the password");
+        }
+
+        if (password.isEmpty()) {
+            isChecked = false;
+            req.setAttribute("messagePassword", "Password can't be empty");
+        }
+
+        if (userService.isPresent(login)) {
+            isChecked = false;
+            req.setAttribute("messageLogin", "The login is already taken");
+        }
+
+        if (isChecked) {
             User user = new User(name, login, password);
 
             userService.create(user);
@@ -44,7 +61,6 @@ public class RegistrationController extends HttpServlet {
         } else {
             req.setAttribute("name", name);
             req.setAttribute("login", login);
-            req.setAttribute("message", "Unequal with the password");
 
             req.getRequestDispatcher("/WEB-INF/views/registration.jsp").forward(req, resp);
         }
