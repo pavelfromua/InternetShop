@@ -78,8 +78,7 @@ public class UserDaoImpl implements UserDao {
     }
 
     @Override
-    public boolean isPresent(String login) {
-        long count = Storage.users.stream().filter(u -> u.getLogin().equals(login)).count();
-        return count == 0 ? false : true;
+    public Optional<User> getByLogin(String login) {
+        return Storage.users.stream().filter(u -> u.getLogin().equals(login)).findFirst();
     }
 }

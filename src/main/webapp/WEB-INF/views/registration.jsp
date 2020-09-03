@@ -13,31 +13,31 @@
 </head>
 <body>
 <jsp:include page="./header.jsp"/>
-<form method="post" action="${pageContext.request.contextPath}/registration">
-    <table border="0">
-        <tr>
-            <td>Name:</td><td><input type="text" name="name" value="${name}"></td>
-        </tr>
-        <tr>
-            <td>Login:</td><td><input type="text" name="login" value="${login}"></td>
-        </tr>
-        <tr>
-            <td colspan="2" style="color: red; font-size: small">${messageLogin}</td>
-        </tr>
-        <tr>
-            <td>Password:</td><td><input type="password" name="password"></td>
-        </tr>
-        <tr>
-            <td>Confirm password:</td><td><input type="password" name="cpassword"></td>
-        </tr>
-        <tr>
-            <td colspan="2" style="color: red; font-size: small">${messagePassword}</td>
-        </tr>
-        <tr>
-            <td colspan="2" align="right"><button type="submit" name="reristration" class="btn btn-sm btn-primary">Register</button> </td>
-        </tr>
-    </table>
+
+<div class="container" style="width: 30%">
+<form class="px-4 py-3" method="post" action="${pageContext.request.contextPath}/registration">
+    <div class="form-group">
+        <label for="name">Name:</label>
+        <input class="form-control" type="text" id="name" name="name" value="${name}">
+    </div>
+    <div class="form-group">
+        <label for="login">Login:</label>
+        <input class="form-control" type="text" id="login" name="login" value="${login}">
+    </div>
+    <div class="form-group">
+        <label for="password">Password:</label>
+        <input class="form-control" type="password" id="password" name="password">
+    </div>
+    <div class="form-group">
+        <label for="cpassword">Confirm password:</label>
+        <input class="form-control" type="password" id="cpassword" name="cpassword">
+    </div>
+    <div class="form-group" style="color: red; font-size: small">
+        ${message}
+    </div>
+    <button type="submit" name="registration" class="btn btn-sm btn-primary">Register</button>
 </form>
+</div>
 
 </body>
 </html>

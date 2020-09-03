@@ -1,7 +1,8 @@
 package internetshop.dao;
 
 import internetshop.model.User;
+import java.util.Optional;
 
 public interface UserDao extends GenericDao<User, Long> {
-    boolean isPresent(String login);
+    Optional<User> getByLogin(String login);
 }

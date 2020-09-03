@@ -1,44 +1,46 @@
 package internetshop.controllers;
 
-import internetshop.exceptions.RegistrationException;
+import internetshop.exceptions.AuthenticationException;
 import internetshop.lib.Injector;
 import internetshop.model.User;
-import internetshop.security.RegistrationService;
+import internetshop.security.AuthenticationService;
 import java.io.IOException;
 import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
-public class RegistrationController extends HttpServlet {
+@WebServlet("/login")
+public class LoginController extends HttpServlet {
     private static final Injector INJECTOR = Injector.getInstance("internetshop");
-    private RegistrationService regService = (RegistrationService) INJECTOR
-            .getInstance(RegistrationService.class);
+    private AuthenticationService authService = (AuthenticationService) INJECTOR
+            .getInstance(AuthenticationService.class);
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp)
             throws ServletException, IOException {
-        req.getRequestDispatcher("/WEB-INF/views/registration.jsp").forward(req, resp);
+
+        req.getRequestDispatcher("/WEB-INF/views/login.jsp").forward(req, resp);
     }
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp)
             throws ServletException, IOException {
-        String name = req.getParameter("name");
+
         String login = req.getParameter("login");
         String password = req.getParameter("password");
-        String confirmPassword = req.getParameter("cpassword");
 
         try {
-            User user = regService.register(name, login, password, confirmPassword);
+            User user = authService.login(login, password);
+            HttpSession session = req.getSession();
+            session.setAttribute("userId", user.getId());
 
-            resp.sendRedirect(req.getContextPath() + "/login");
-        } catch (RegistrationException e) {
+            resp.sendRedirect(req.getContextPath() + "/");
+        } catch (AuthenticationException e) {
             req.setAttribute("message", e.getMessage());
-            req.setAttribute("name", name);
-            req.setAttribute("login", login);
-
-            req.getRequestDispatcher("/WEB-INF/views/registration.jsp").forward(req, resp);
+            req.getRequestDispatcher("/WEB-INF/views/login.jsp").forward(req, resp);
         }
     }
 }
