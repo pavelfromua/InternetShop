@@ -25,7 +25,7 @@
     <tr>
         <td><a href="${pageContext.request.contextPath}/orders/userorders">User orders</a></td>
         <td><a href="${pageContext.request.contextPath}/orders/admin/orders">Admin orders list</a></td>
-        <td></td>
+        <td><a href="${pageContext.request.contextPath}/logout">Logout</a></td>
     </tr>
 </table>
 </body>
