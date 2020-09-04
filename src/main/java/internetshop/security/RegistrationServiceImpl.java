@@ -10,8 +10,8 @@ import internetshop.model.User;
 import internetshop.service.ShoppingCartService;
 import internetshop.service.UserService;
 import java.util.ArrayList;
-import java.util.List;
 import java.util.Optional;
+import java.util.Set;
 
 @Service
 public class RegistrationServiceImpl implements RegistrationService {
@@ -23,7 +23,7 @@ public class RegistrationServiceImpl implements RegistrationService {
 
     @Override
     public User register(String name, String login, String password, String cpassword,
-                         List<Role> roles)
+                         Set<Role> roles)
             throws RegistrationException {
         if (login.isEmpty()) {
             throw new RegistrationException("Login can't be empty");

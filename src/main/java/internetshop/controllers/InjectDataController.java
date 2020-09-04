@@ -11,7 +11,8 @@ import internetshop.service.ShoppingCartService;
 import internetshop.service.UserService;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.List;
+import java.util.HashSet;
+import java.util.Set;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -31,12 +32,13 @@ public class InjectDataController extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp)
             throws ServletException, IOException {
-        User admin = new User("Admin", "admin", "123",
-                List.of(Role.of("ADMIN")));
+        Set<Role> roles = new HashSet<>();
+        roles.add(Role.of("ADMIN"));
+        User admin = new User("Admin", "admin", "123", roles);
 
-
-        User customer = new User("Customer", "customer", "111",
-                List.of(Role.of("USER")));
+        roles.clear();
+        roles.add(Role.of("USER"));
+        User customer = new User("Customer", "customer", "111", roles);
 
         userService.create(admin);
         userService.create(customer);

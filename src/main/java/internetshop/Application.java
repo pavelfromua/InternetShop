@@ -10,15 +10,19 @@ import internetshop.service.ProductService;
 import internetshop.service.ShoppingCartService;
 import internetshop.service.UserService;
 import java.util.ArrayList;
-import java.util.List;
+import java.util.HashSet;
+import java.util.Set;
 
 public class Application {
     public static void main(String[] args) {
         // users
-        User admin = new User("Admin", "admin", "123",
-                List.of(Role.of("ADMIN")));
-        User customer = new User("Customer", "customer", "111",
-                List.of(Role.of("USER")));
+        Set<Role> roles = new HashSet<>();
+        roles.add(Role.of("ADMIN"));
+        User admin = new User("Admin", "admin", "123", roles);
+
+        roles.clear();
+        roles.add(Role.of("USER"));
+        User customer = new User("Customer", "customer", "111", roles);
 
         Injector injector = Injector.getInstance("internetshop");
 

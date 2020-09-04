@@ -3,11 +3,11 @@ package internetshop.controllers;
 import internetshop.exceptions.RegistrationException;
 import internetshop.lib.Injector;
 import internetshop.model.Role;
-import internetshop.model.Role.RoleName;
 import internetshop.model.User;
 import internetshop.security.RegistrationService;
 import java.io.IOException;
-import java.util.List;
+import java.util.HashSet;
+import java.util.Set;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -33,8 +33,9 @@ public class RegistrationController extends HttpServlet {
         String confirmPassword = req.getParameter("cpassword");
 
         try {
-            User user = regService.register(name, login, password, confirmPassword,
-                    List.of(Role.of("USER")));
+            Set<Role> roles = new HashSet<>();
+            roles.add(Role.of("USER"));
+            User user = regService.register(name, login, password, confirmPassword, roles);
 
             resp.sendRedirect(req.getContextPath() + "/login");
         } catch (RegistrationException e) {

@@ -4,9 +4,7 @@ import internetshop.lib.Injector;
 import internetshop.model.Role;
 import internetshop.model.User;
 import internetshop.service.UserService;
-
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
