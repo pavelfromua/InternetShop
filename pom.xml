@@ -113,13 +113,17 @@
                <configuration>
                     <webXml>src/main/webapp/web.xml</webXml>
                 </configuration>
-             </plugin><plugin><groupId>org.apache.maven.plugins</groupId><artifactId>maven-compiler-plugin</artifactId><configuration><source>8</source><target>8</target></configuration></plugin>
+             </plugin><plugin><groupId>org.apache.maven.plugins</groupId><artifactId>maven-compiler-plugin</artifactId><configuration><source>9</source><target>9</target></configuration></plugin>
         </plugins>
         <pluginManagement>
             <plugins>
                 <plugin>
                     <artifactId>maven-compiler-plugin</artifactId>
                     <version>${maven-compiler-plugin.version}</version>
+                    <configuration>
+                        <fork>true</fork>
+                        <executable>javac9</executable>
+                    </configuration>
                 </plugin>
             </plugins>
         </pluginManagement>

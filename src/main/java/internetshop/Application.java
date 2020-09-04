@@ -2,6 +2,7 @@ package internetshop;
 
 import internetshop.lib.Injector;
 import internetshop.model.Product;
+import internetshop.model.Role;
 import internetshop.model.ShoppingCart;
 import internetshop.model.User;
 import internetshop.service.OrderService;
@@ -9,12 +10,15 @@ import internetshop.service.ProductService;
 import internetshop.service.ShoppingCartService;
 import internetshop.service.UserService;
 import java.util.ArrayList;
+import java.util.List;
 
 public class Application {
     public static void main(String[] args) {
         // users
-        User admin = new User("Admin", "admin", "123");
-        User customer = new User("Customer", "customer", "111");
+        User admin = new User("Admin", "admin", "123",
+                List.of(Role.of("ADMIN")));
+        User customer = new User("Customer", "customer", "111",
+                List.of(Role.of("USER")));
 
         Injector injector = Injector.getInstance("internetshop");
 

@@ -4,11 +4,13 @@ import internetshop.exceptions.RegistrationException;
 import internetshop.lib.Inject;
 import internetshop.lib.Service;
 import internetshop.model.Product;
+import internetshop.model.Role;
 import internetshop.model.ShoppingCart;
 import internetshop.model.User;
 import internetshop.service.ShoppingCartService;
 import internetshop.service.UserService;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -20,7 +22,8 @@ public class RegistrationServiceImpl implements RegistrationService {
     private ShoppingCartService cartService;
 
     @Override
-    public User register(String name, String login, String password, String cpassword)
+    public User register(String name, String login, String password, String cpassword,
+                         List<Role> roles)
             throws RegistrationException {
         if (login.isEmpty()) {
             throw new RegistrationException("Login can't be empty");
@@ -39,7 +42,7 @@ public class RegistrationServiceImpl implements RegistrationService {
             throw new RegistrationException("Login is already taken");
         }
 
-        User user = new User(name, login, password);
+        User user = new User(name, login, password, roles);
 
         userService.create(user);
         cartService.create(new ShoppingCart(new ArrayList<Product>(), user.getId()));
