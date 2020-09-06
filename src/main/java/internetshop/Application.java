@@ -15,7 +15,7 @@ import java.util.Set;
 
 public class Application {
     public static void main(String[] args) {
-        // users
+        // users ds
         Set<Role> roles = new HashSet<>();
         roles.add(Role.of("ADMIN"));
         User admin = new User("Admin", "admin", "123", roles);
