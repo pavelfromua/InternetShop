@@ -1,0 +1,217 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app xmlns="http://xmlns.jcp.org/xml/ns/javaee"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee
+                      http://xmlns.jcp.org/xml/ns/javaee/web-app_4_0.xsd"
+         version="4.0">
+
+    <servlet>
+        <servlet-name>index</servlet-name>
+        <servlet-class>internetshop.controllers.IndexController</servlet-class>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>index</servlet-name>
+        <url-pattern>/</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>allUsers</servlet-name>
+        <servlet-class>internetshop.controllers.UsersController</servlet-class>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>allUsers</servlet-name>
+        <url-pattern>/users/all</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>registration</servlet-name>
+        <servlet-class>internetshop.controllers.RegistrationController</servlet-class>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>registration</servlet-name>
+        <url-pattern>/registration</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>injectData</servlet-name>
+        <servlet-class>internetshop.controllers.InjectDataController</servlet-class>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>injectData</servlet-name>
+        <url-pattern>/injectdata</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>deleteUser</servlet-name>
+        <servlet-class>internetshop.controllers.DeleteUserController</servlet-class>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>deleteUser</servlet-name>
+        <url-pattern>/users/delete</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>displayDB</servlet-name>
+        <servlet-class>internetshop.controllers.DisplayAllDbController</servlet-class>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>displayDB</servlet-name>
+        <url-pattern>/displaydb</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>addProduct</servlet-name>
+        <servlet-class>internetshop.controllers.AddProductController</servlet-class>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>addProduct</servlet-name>
+        <url-pattern>/products/admin/add</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>catalog</servlet-name>
+        <servlet-class>internetshop.controllers.ProductController</servlet-class>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>catalog</servlet-name>
+        <url-pattern>/products/catalog</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>adminCatalog</servlet-name>
+        <servlet-class>internetshop.controllers.AdminProductController</servlet-class>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>adminCatalog</servlet-name>
+        <url-pattern>/products/admin/catalog</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>deleteProduct</servlet-name>
+        <servlet-class>internetshop.controllers.DeleteProductController</servlet-class>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>deleteProduct</servlet-name>
+        <url-pattern>/products/delete</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>addToCart</servlet-name>
+        <servlet-class>internetshop.controllers.AddToCartController</servlet-class>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>addToCart</servlet-name>
+        <url-pattern>/cart/add</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>cart</servlet-name>
+        <servlet-class>internetshop.controllers.ShoppingCartController</servlet-class>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>cart</servlet-name>
+        <url-pattern>/cart</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>deleteFromCart</servlet-name>
+        <servlet-class>internetshop.controllers.DeleteFromCartController</servlet-class>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>deleteFromCart</servlet-name>
+        <url-pattern>/cart/delete</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>addOrder</servlet-name>
+        <servlet-class>internetshop.controllers.AddOrderController</servlet-class>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>addOrder</servlet-name>
+        <url-pattern>/orders/add</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>userOrders</servlet-name>
+        <servlet-class>internetshop.controllers.UserOrderController</servlet-class>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>userOrders</servlet-name>
+        <url-pattern>/orders/userorders</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>orderDetails</servlet-name>
+        <servlet-class>internetshop.controllers.OrderDetailsController</servlet-class>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>orderDetails</servlet-name>
+        <url-pattern>/order/details</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>adminOrders</servlet-name>
+        <servlet-class>internetshop.controllers.AdminOrderController</servlet-class>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>adminOrders</servlet-name>
+        <url-pattern>/orders/admin/orders</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>deleteOrder</servlet-name>
+        <servlet-class>internetshop.controllers.DeleteOrderController</servlet-class>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>deleteOrder</servlet-name>
+        <url-pattern>/orders/admin/delete</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>logout</servlet-name>
+        <servlet-class>internetshop.controllers.LogoutController</servlet-class>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>logout</servlet-name>
+        <url-pattern>/logout</url-pattern>
+    </servlet-mapping>
+
+    <filter>
+        <filter-name>authenticationFilter</filter-name>
+        <filter-class>internetshop.web.filters.AuthenticationFilter</filter-class>
+    </filter>
+
+    <filter-mapping>
+        <filter-name>authenticationFilter</filter-name>
+        <url-pattern>/*</url-pattern>
+    </filter-mapping>
+
+    <filter>
+        <filter-name>authorizationFilter</filter-name>
+        <filter-class>internetshop.web.filters.AuthorizationFilter</filter-class>
+    </filter>
+
+    <filter-mapping>
+        <filter-name>authorizationFilter</filter-name>
+        <url-pattern>/*</url-pattern>
+    </filter-mapping>
+</web-app>
