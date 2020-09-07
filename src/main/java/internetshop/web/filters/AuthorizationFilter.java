@@ -5,6 +5,7 @@ import internetshop.model.Role;
 import internetshop.model.User;
 import internetshop.service.UserService;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -25,8 +26,13 @@ public class AuthorizationFilter implements Filter {
 
     @Override
     public void init(FilterConfig filterConfig) throws ServletException {
-        protectedUrls.put("/users/all", List.of(Role.RoleName.ADMIN));
-        protectedUrls.put("/orders/add", List.of(Role.RoleName.USER));
+        List<Role.RoleName> roles = new ArrayList<>();
+        roles.add(Role.RoleName.ADMIN);
+        protectedUrls.put("/users/all", roles);
+
+        roles.clear();
+        roles.add(Role.RoleName.USER);
+        protectedUrls.put("/orders/add", roles);
     }
 
     @Override

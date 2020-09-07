@@ -2,14 +2,12 @@ package internetshop.dao.impl;
 
 import internetshop.dao.ProductDao;
 import internetshop.db.Storage;
-import internetshop.lib.Dao;
 import internetshop.model.Product;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 import org.apache.log4j.Logger;
 
-@Dao
 public class ProductDaoImpl implements ProductDao {
     static final Logger logger = Logger.getLogger(ProductDaoImpl.class);
 
