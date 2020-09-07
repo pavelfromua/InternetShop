@@ -19,9 +19,7 @@ public class ConnectionUtil {
         connectionProperties.put("user", "root");
         connectionProperties.put("password", "root");
 
-        //String url = "jdbc:mysql://localhost:3306/internetshop/";
-
-        String url = "jdbc:mysql://localhost:3306";
+        String url = "jdbc:mysql://localhost:3306/internetshop?serverTimezone=UTC";
         try {
             return DriverManager.getConnection(url, connectionProperties);
         } catch (SQLException e) {
