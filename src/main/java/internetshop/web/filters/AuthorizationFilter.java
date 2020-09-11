@@ -26,13 +26,13 @@ public class AuthorizationFilter implements Filter {
 
     @Override
     public void init(FilterConfig filterConfig) throws ServletException {
-        List<Role.RoleName> roles = new ArrayList<>();
-        roles.add(Role.RoleName.ADMIN);
-        protectedUrls.put("/users/all", roles);
+        List<Role.RoleName> rolesAdmin = new ArrayList<>();
+        rolesAdmin.add(Role.RoleName.ADMIN);
+        protectedUrls.put("/users/all", rolesAdmin);
 
-        roles.clear();
-        roles.add(Role.RoleName.USER);
-        protectedUrls.put("/orders/add", roles);
+        List<Role.RoleName> rolesDefault = new ArrayList<>();
+        rolesDefault.add(Role.RoleName.USER);
+        protectedUrls.put("/orders/add", rolesDefault);
     }
 
     @Override

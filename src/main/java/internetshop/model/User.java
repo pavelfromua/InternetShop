@@ -1,5 +1,6 @@
 package internetshop.model;
 
+import java.util.HashSet;
 import java.util.Set;
 
 public class User implements Cloneable {
@@ -14,6 +15,13 @@ public class User implements Cloneable {
         this.login = login;
         this.password = password;
         this.roles = roles;
+    }
+
+    public User(String name, String login, String password) {
+        this.name = name;
+        this.login = login;
+        this.password = password;
+        this.roles = new HashSet<>();
     }
 
     public void setId(Long id) {
