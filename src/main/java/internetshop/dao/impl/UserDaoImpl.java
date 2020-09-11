@@ -13,7 +13,6 @@ import java.util.Optional;
 import java.util.stream.Collectors;
 import org.apache.log4j.Logger;
 
-@Dao
 public class UserDaoImpl implements UserDao {
     static final Logger logger = Logger.getLogger(UserDaoImpl.class);
 
