@@ -11,7 +11,6 @@ import java.util.Optional;
 import java.util.stream.Collectors;
 import org.apache.log4j.Logger;
 
-@Dao
 public class OrderDaoImpl implements OrderDao {
     static final Logger logger = Logger.getLogger(OrderDaoImpl.class);
 

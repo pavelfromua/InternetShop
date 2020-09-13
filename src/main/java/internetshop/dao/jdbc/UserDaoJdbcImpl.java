@@ -1,10 +1,12 @@
 package internetshop.dao.jdbc;
 
+import internetshop.dao.OrderDao;
 import internetshop.dao.ShoppingCartDao;
 import internetshop.dao.UserDao;
 import internetshop.exceptions.DataProcessingException;
 import internetshop.lib.Dao;
 import internetshop.lib.Inject;
+import internetshop.model.Order;
 import internetshop.model.Role;
 import internetshop.model.ShoppingCart;
 import internetshop.model.User;
@@ -24,6 +26,9 @@ import java.util.Set;
 @Dao
 public class UserDaoJdbcImpl implements UserDao {
     private static final Logger LOGGER = Logger.getLogger(UserDaoJdbcImpl.class);
+
+    @Inject
+    OrderDao orderDao;
 
     @Inject
     ShoppingCartDao cartDao;
@@ -234,7 +239,14 @@ public class UserDaoJdbcImpl implements UserDao {
     @Override
     public boolean delete(Long id) {
         boolean isDeleted = true;
-        //remove orders
+
+        List<Order> orders = orderDao.getUserOrders(id);
+        for (Order order: orders) {
+            if (!orderDao.delete(order.getId())) {
+                isDeleted = false;
+                break;
+            }
+        }
 
         Optional<ShoppingCart> optionalCart = cartDao.getByUserId(id);
         if (optionalCart.isPresent()) {
