@@ -1,14 +1,15 @@
 package internetshop.dao.jdbc;
 
+import internetshop.dao.ShoppingCartDao;
 import internetshop.dao.UserDao;
 import internetshop.exceptions.DataProcessingException;
 import internetshop.lib.Dao;
+import internetshop.lib.Inject;
 import internetshop.model.Role;
+import internetshop.model.ShoppingCart;
 import internetshop.model.User;
 import internetshop.util.ConnectionUtil;
 import org.apache.log4j.Logger;
-
-import java.io.Serializable;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -24,50 +25,65 @@ import java.util.Set;
 public class UserDaoJdbcImpl implements UserDao {
     private static final Logger LOGGER = Logger.getLogger(UserDaoJdbcImpl.class);
 
+    @Inject
+    ShoppingCartDao cartDao;
+
+    private Set<Role> getUserRoles(Long id) {
+        try (Connection connection = ConnectionUtil.getConnection()) {
+            Set<Role> roles = new HashSet<>();
+            String query = "SELECT * FROM roles JOIN users_roles ON "
+                    + "roles.role_id = users_roles.role_id WHERE users_roles.user_id = ?";
+            PreparedStatement statement = connection.prepareStatement(query);
+            statement.setLong(1, id);
+            ResultSet resultSet = statement.executeQuery();
+            while (resultSet.next()) {
+                Long roleId = resultSet.getLong("role_id");
+                String roleName = resultSet.getString("name");
+                Role role = Role.of(roleName);
+                role.setId(roleId);
+                roles.add(role);
+            }
+
+            return roles;
+        } catch (SQLException e) {
+            throw new DataProcessingException("Roles aren't found for user " + id, e);
+        }
+    }
+
+    private User getUserFromResultSet(ResultSet resultSet) throws SQLException {
+        Long userId = resultSet.getLong("user_id");
+        String name = resultSet.getString("name");
+        String login = resultSet.getString("login");
+        String password = resultSet.getString("password");
+
+        User user = new User(name, login, password);
+        user.setId(userId);
+
+        return user;
+    }
+
     @Override
     public Optional<User> getByLogin(String login) {
         Optional<User> optional = Optional.empty();
-        String query;
-
+        String query = "SELECT * FROM users WHERE login = ?";
+        User user = null;
         try (Connection connection = ConnectionUtil.getConnection()) {
-            query = "SELECT users.user_id, users.name as userName, users.login, users.password, "
-                    + "roles.role_id, roles.name as roleName FROM users "
-                    + "INNER JOIN users_roles ON users.user_id = users_roles.user_id "
-                    + "INNER JOIN roles ON users_roles.role_id = roles.role_id "
-                    + "WHERE users.login = ?";
             PreparedStatement statement = connection.prepareStatement(query);
             statement.setString(1, login);
             ResultSet resultSet = statement.executeQuery();
 
-            User user = null;
             if (resultSet.next()) {
-                    Long userId = resultSet.getLong("user_id");
-                    String name = resultSet.getString("userName");
-                    String password = resultSet.getString("password");
-                    user = new User(name, login, password);
-                    user.setId(userId);
-
-
-                String roleName = resultSet.getString("roleName");
-                Long roleId = resultSet.getLong("role_id");
-
-                Role role = Role.of(roleName);
-                role.setId(roleId);
-
-                roles.add(role);
-            }
-
-//            if (roles.isEmpty()) {
-//                user = null;
-//            }
-            if (user != null) {
+                user = getUserFromResultSet(resultSet);
+                optional = Optional.of(user);
                 LOGGER.info("The user " + user.getId() + " is found");
-                user.setRoles(roles);
             }
-
-            optional = Optional.of(user);
         } catch (SQLException e) {
             throw new DataProcessingException("User isn't found", e);
+        }
+
+        if (user != null) {
+            Set<Role> roles = getUserRoles(user.getId());
+            user.setRoles(roles);
         }
 
         return optional;
@@ -128,52 +144,25 @@ public class UserDaoJdbcImpl implements UserDao {
     @Override
     public Optional<User> get(Long id) {
         Optional<User> optional = Optional.empty();
-        String query;
-
+        String query = "SELECT * FROM users WHERE user_id = ?";
+        User user = null;
         try (Connection connection = ConnectionUtil.getConnection()) {
-            query = "SELECT users.user_id, users.name as userName, users.login, users.password, "
-                    + "roles.role_id, roles.name as roleName FROM users "
-                    + "INNER JOIN users_roles ON users.user_id = users_roles.user_id "
-                    + "INNER JOIN roles ON users_roles.role_id = roles.role_id "
-                    + "WHERE users.user_id = ?";
             PreparedStatement statement = connection.prepareStatement(query);
             statement.setLong(1, id);
             ResultSet resultSet = statement.executeQuery();
 
-            User user = null;
-            Long currentId = 0L;
-            Set<Role> roles = new HashSet<>();
-
-            while (resultSet.next()) {
-                if (currentId != id) {
-                    String login = resultSet.getString("login");
-                    String name = resultSet.getString("userName");
-                    String password = resultSet.getString("password");
-                    user = new User(name, login, password);
-                    user.setId(id);
-
-                    currentId = id;
-                }
-                String roleName = resultSet.getString("roleName");
-                Long roleId = resultSet.getLong("role_id");
-
-                Role role = Role.of(roleName);
-                role.setId(roleId);
-
-                roles.add(role);
-            }
-
-            if (roles.isEmpty()) {
-                user = null;
-            }
-            if (user != null) {
+            if (resultSet.next()) {
+                user = getUserFromResultSet(resultSet);
+                optional = Optional.of(user);
                 LOGGER.info("The user " + user.getId() + " is found");
-                user.setRoles(roles);
             }
-
-            optional = Optional.of(user);
         } catch (SQLException e) {
             throw new DataProcessingException("User isn't found", e);
+        }
+
+        if (user != null) {
+            Set<Role> roles = getUserRoles(user.getId());
+            user.setRoles(roles);
         }
 
         return optional;
@@ -182,42 +171,17 @@ public class UserDaoJdbcImpl implements UserDao {
     @Override
     public List<User> getAll() {
         List<User> list = new ArrayList<>();
-        String query = "SELECT users.user_id, users.name as userName, users.login, users.password, "
-                + "roles.role_id, roles.name as roleName FROM users "
-                + "INNER JOIN users_roles ON users.user_id = users_roles.user_id "
-                + "INNER JOIN roles ON users_roles.role_id = roles.role_id";
+
+        String query = "SELECT * FROM users";
 
         try (Connection connection = ConnectionUtil.getConnection()) {
             PreparedStatement statement = connection.prepareStatement(query);
             ResultSet resultSet = statement.executeQuery();
-            Long currentId = 0L;
-            Set<Role> roles = new HashSet<>();
+
             while (resultSet.next()) {
-                Long userId = resultSet.getLong("user_id");
-
-                if (currentId != userId) {
-                    String login = resultSet.getString("login");
-                    String name = resultSet.getString("userName");
-                    String password = resultSet.getString("password");
-                    User user = new User(name, login, password);
-                    user.setId(userId);
-
-                    if (!roles.isEmpty()) {
-                        user.setRoles(roles);
-                        roles = new HashSet<>();
-                    }
-
-                    list.add(user);
-                    currentId = userId;
-                }
-
-                String roleName = resultSet.getString("roleName");
-                Long roleId = resultSet.getLong("role_id");
-
-                Role role = Role.of(roleName);
-                role.setId(roleId);
-
-                roles.add(role);
+                User user = getUserFromResultSet(resultSet);
+                list.add(user);
+                LOGGER.info("The user " + user.getId() + " is gotten");
             }
         } catch (SQLException e) {
             throw new DataProcessingException("Users aren't gotten", e);
@@ -228,11 +192,84 @@ public class UserDaoJdbcImpl implements UserDao {
 
     @Override
     public User update(User user) {
-        return null;
+        try (Connection connection = ConnectionUtil.getConnection()) {
+            Long userId = user.getId();
+
+            connection.setAutoCommit(false);
+
+            String query = "UPDATE users SET name = ?, login = ?, password = ? WHERE user_id = ?";
+            PreparedStatement updateUserStatement = connection.prepareStatement(query);
+            updateUserStatement.setString(1, user.getName());
+            updateUserStatement.setString(2, user.getLogin());
+            updateUserStatement.setString(3, user.getPassword());
+            updateUserStatement.setLong(4, userId);
+
+            if (updateUserStatement.executeUpdate() > 0) {
+                String removeQuery = "DELETE FROM users_roles WHERE user_id = ?";
+                PreparedStatement removeUserRoleStatement = connection
+                        .prepareStatement(removeQuery);
+                removeUserRoleStatement.setLong(1, userId);
+                removeUserRoleStatement.executeUpdate();
+
+                String linkQuery = "INSERT INTO users_roles(user_id, role_id) VALUES (?, ?)";
+                Set<Role> roles = user.getRoles();
+                for (Role role: roles) {
+                    PreparedStatement linkUserRoleStatement = connection
+                            .prepareStatement(linkQuery);
+                    linkUserRoleStatement.setLong(1, userId);
+                    linkUserRoleStatement.setLong(2, role.getId());
+                    linkUserRoleStatement.executeUpdate();
+                }
+            }
+            connection.commit();
+            connection.setAutoCommit(true);
+
+            LOGGER.info("The user " + user.getId() + " has updated");
+            return user;
+        } catch (SQLException e) {
+            throw new DataProcessingException("The user " + user.getId() + " hasn't updated", e);
+        }
     }
 
     @Override
     public boolean delete(Long id) {
-        return false;
+        boolean isDeleted = true;
+        //remove orders
+
+        Optional<ShoppingCart> optionalCart = cartDao.getByUserId(id);
+        if (optionalCart.isPresent()) {
+            ShoppingCart shoppingCart = optionalCart.get();
+            if (!cartDao.delete(shoppingCart.getId())) {
+                isDeleted = false;
+            }
+        }
+
+        if (isDeleted) {
+            String query;
+            try (Connection connection = ConnectionUtil.getConnection()) {
+                connection.setAutoCommit(false);
+
+                query = "DELETE FROM users_roles WHERE user_id = ?";
+                PreparedStatement removeUserRoleStatement = connection
+                        .prepareStatement(query);
+                removeUserRoleStatement.setLong(1, id);
+
+                if (removeUserRoleStatement.executeUpdate() > 0) {
+                    query = "DELETE FROM users WHERE user_id = ?";
+                    PreparedStatement deleteUserStatement = connection.prepareStatement(query);
+                    deleteUserStatement.setLong(1, id);
+                    deleteUserStatement.executeUpdate();
+                }
+                connection.commit();
+                connection.setAutoCommit(true);
+
+                LOGGER.info("The user " + id + " has deleted");
+            } catch (SQLException e) {
+                LOGGER.info("The user " + id + " hasn't deleted");
+                isDeleted = false;
+            }
+        }
+
+        return isDeleted;
     }
 }

@@ -11,7 +11,6 @@ import java.util.Optional;
 import java.util.stream.Collectors;
 import org.apache.log4j.Logger;
 
-@Dao
 public class ShoppingCartDaoImpl implements ShoppingCartDao {
     static final Logger logger = Logger.getLogger(ShoppingCartDaoImpl.class);
 
