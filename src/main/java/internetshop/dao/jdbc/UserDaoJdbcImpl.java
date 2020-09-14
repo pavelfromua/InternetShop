@@ -11,7 +11,6 @@ import internetshop.model.Role;
 import internetshop.model.ShoppingCart;
 import internetshop.model.User;
 import internetshop.util.ConnectionUtil;
-import org.apache.log4j.Logger;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -22,6 +21,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Optional;
 import java.util.Set;
+import org.apache.log4j.Logger;
 
 @Dao
 public class UserDaoJdbcImpl implements UserDao {
@@ -198,8 +198,6 @@ public class UserDaoJdbcImpl implements UserDao {
     @Override
     public User update(User user) {
         try (Connection connection = ConnectionUtil.getConnection()) {
-            Long userId = user.getId();
-
             connection.setAutoCommit(false);
 
             String query = "UPDATE users SET name = ?, login = ?, password = ? WHERE user_id = ?";
@@ -207,6 +205,7 @@ public class UserDaoJdbcImpl implements UserDao {
             updateUserStatement.setString(1, user.getName());
             updateUserStatement.setString(2, user.getLogin());
             updateUserStatement.setString(3, user.getPassword());
+            Long userId = user.getId();
             updateUserStatement.setLong(4, userId);
 
             if (updateUserStatement.executeUpdate() > 0) {
@@ -265,13 +264,13 @@ public class UserDaoJdbcImpl implements UserDao {
                 PreparedStatement removeUserRoleStatement = connection
                         .prepareStatement(query);
                 removeUserRoleStatement.setLong(1, id);
+                removeUserRoleStatement.executeUpdate();
 
-                if (removeUserRoleStatement.executeUpdate() > 0) {
-                    query = "DELETE FROM users WHERE user_id = ?";
-                    PreparedStatement deleteUserStatement = connection.prepareStatement(query);
-                    deleteUserStatement.setLong(1, id);
-                    deleteUserStatement.executeUpdate();
-                }
+                query = "DELETE FROM users WHERE user_id = ?";
+                PreparedStatement deleteUserStatement = connection.prepareStatement(query);
+                deleteUserStatement.setLong(1, id);
+                deleteUserStatement.executeUpdate();
+
                 connection.commit();
                 connection.setAutoCommit(true);
 

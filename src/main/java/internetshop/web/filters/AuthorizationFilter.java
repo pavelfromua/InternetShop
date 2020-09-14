@@ -29,10 +29,16 @@ public class AuthorizationFilter implements Filter {
         List<Role.RoleName> rolesAdmin = new ArrayList<>();
         rolesAdmin.add(Role.RoleName.ADMIN);
         protectedUrls.put("/users/all", rolesAdmin);
+        protectedUrls.put("/products/admin/catalog", rolesAdmin);
+        protectedUrls.put("/orders/admin/orders", rolesAdmin);
+        protectedUrls.put("/injectdata", rolesAdmin);
+        protectedUrls.put("/displaydb", rolesAdmin);
 
         List<Role.RoleName> rolesDefault = new ArrayList<>();
         rolesDefault.add(Role.RoleName.USER);
         protectedUrls.put("/orders/add", rolesDefault);
+        protectedUrls.put("/products/catalog", rolesDefault);
+        protectedUrls.put("/orders/userorders", rolesDefault);
     }
 
     @Override

@@ -29,13 +29,19 @@
     </tr>
     <tr>
         <td>
-            <table border="1">
+            <table class="table table-striped">
+                <thead>
                 <tr>
-                    <th>№</th><th>Name</th><th>Price</th><th>Action</th>
+                    <th scope="col">#</th>
+                    <th scope="col">Name</th>
+                    <th scope="col">Price</th>
+                    <th scope="col">Action</th>
                 </tr>
+                </thead>
+                <tbody>
                 <c:forEach var="product" items="${products}" varStatus="i">
                     <tr>
-                        <td><c:out value="${i.index + 1}"/></td>
+                        <th scope="row"><c:out value="${i.index + 1}"/></th>
                         <td><c:out value="${product.name}"/></td>
                         <td><c:out value="${product.price}"/></td>
                         <td>
@@ -43,6 +49,7 @@
                         </td>
                     </tr>
                 </c:forEach>
+                </tbody>
             </table>
         </td>
     </tr>

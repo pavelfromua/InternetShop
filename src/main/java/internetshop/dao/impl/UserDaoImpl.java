@@ -4,7 +4,6 @@ import internetshop.dao.OrderDao;
 import internetshop.dao.ShoppingCartDao;
 import internetshop.dao.UserDao;
 import internetshop.db.Storage;
-import internetshop.lib.Dao;
 import internetshop.lib.Inject;
 import internetshop.model.ShoppingCart;
 import internetshop.model.User;

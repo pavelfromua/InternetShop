@@ -1,26 +1,20 @@
 package internetshop.dao.jdbc;
 
 import internetshop.dao.ShoppingCartDao;
-import internetshop.dao.impl.ShoppingCartDaoImpl;
 import internetshop.exceptions.DataProcessingException;
 import internetshop.lib.Dao;
 import internetshop.model.Product;
-import internetshop.model.Role;
 import internetshop.model.ShoppingCart;
-import internetshop.model.User;
 import internetshop.util.ConnectionUtil;
-import org.apache.log4j.Logger;
-
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
 import java.util.Optional;
-import java.util.Set;
+import org.apache.log4j.Logger;
 
 @Dao
 public class ShoppingCartDaoJdbcImpl implements ShoppingCartDao {
@@ -184,7 +178,8 @@ public class ShoppingCartDaoJdbcImpl implements ShoppingCartDao {
             removeProductsStatement.setLong(1, cartId);
             removeProductsStatement.executeUpdate();
 
-            String linkQuery = "INSERT INTO shopping_carts_products(cart_id, product_id) VALUES (?, ?)";
+            String linkQuery = "INSERT INTO shopping_carts_products(cart_id, product_id) "
+                    + "VALUES (?, ?)";
             for (Product product: shoppingCart.getProducts()) {
                 PreparedStatement linkProductStatement = connection
                         .prepareStatement(linkQuery);
@@ -216,13 +211,13 @@ public class ShoppingCartDaoJdbcImpl implements ShoppingCartDao {
             PreparedStatement removeCartProductsStatement = connection
                     .prepareStatement(query);
             removeCartProductsStatement.setLong(1, id);
+            removeCartProductsStatement.executeUpdate();
 
-            if (removeCartProductsStatement.executeUpdate() > 0) {
-                query = "DELETE FROM shopping_carts WHERE cart_id = ?";
-                PreparedStatement removeCartStatement = connection.prepareStatement(query);
-                removeCartStatement.setLong(1, id);
-                removeCartStatement.executeUpdate();
-            }
+            query = "DELETE FROM shopping_carts WHERE cart_id = ?";
+            PreparedStatement removeCartStatement = connection.prepareStatement(query);
+            removeCartStatement.setLong(1, id);
+            removeCartStatement.executeUpdate();
+
             connection.commit();
             connection.setAutoCommit(true);
 

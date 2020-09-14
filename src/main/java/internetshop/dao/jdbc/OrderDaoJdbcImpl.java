@@ -5,21 +5,16 @@ import internetshop.exceptions.DataProcessingException;
 import internetshop.lib.Dao;
 import internetshop.model.Order;
 import internetshop.model.Product;
-import internetshop.model.Role;
-import internetshop.model.ShoppingCart;
 import internetshop.util.ConnectionUtil;
-import org.apache.log4j.Logger;
-
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
 import java.util.Optional;
-import java.util.Set;
+import org.apache.log4j.Logger;
 
 @Dao
 public class OrderDaoJdbcImpl implements OrderDao {
@@ -94,7 +89,8 @@ public class OrderDaoJdbcImpl implements OrderDao {
                 Long orderId = resultSetOrder.getLong(1);
                 order.setId(orderId);
 
-                String linkQuery = "INSERT INTO orders_products(order_id, product_id) VALUES (?, ?)";
+                String linkQuery = "INSERT INTO orders_products(order_id, product_id) "
+                        + "VALUES (?, ?)";
                 for (Product product: order.getProducts()) {
                     PreparedStatement linkProductStatement = connection
                             .prepareStatement(linkQuery);
@@ -213,13 +209,13 @@ public class OrderDaoJdbcImpl implements OrderDao {
             PreparedStatement removeOrderProductsStatement = connection
                     .prepareStatement(query);
             removeOrderProductsStatement.setLong(1, id);
+            removeOrderProductsStatement.executeUpdate();
 
-            if (removeOrderProductsStatement.executeUpdate() > 0) {
-                query = "DELETE FROM orders WHERE order_id = ?";
-                PreparedStatement removeOrderStatement = connection.prepareStatement(query);
-                removeOrderStatement.setLong(1, id);
-                removeOrderStatement.executeUpdate();
-            }
+            query = "DELETE FROM orders WHERE order_id = ?";
+            PreparedStatement removeOrderStatement = connection.prepareStatement(query);
+            removeOrderStatement.setLong(1, id);
+            removeOrderStatement.executeUpdate();
+
             connection.commit();
             connection.setAutoCommit(true);
 

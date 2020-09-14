@@ -14,21 +14,23 @@
 <body>
 <jsp:include page="../../header.jsp"/>
 <h2 style="color: cadetblue">Add product</h2>
-<form method="post" action="${pageContext.request.contextPath}/products/admin/add">
-    <table>
-        <tr>
-            <td>Name:</td><td><input type="text" name="name" value="${name}" required></td>
-        </tr>
-        <tr>
-            <td>Price:</td><td><input type="text" name="price" maxlength="10"></td>
-        </tr>
-        <tr>
-            <td colspan="2" align="left" style="color: red">${message}</td>
-        </tr>
-        <tr>
-            <td colspan="2" align="right"><button type="submit" name="Add" class="btn btn-sm btn-primary">Add</button></td>
-        </tr>
-    </table>
+<div class="container" style="width: 30%">
+<form class="px-4 py-3" method="post" action="${pageContext.request.contextPath}/products/admin/add">
+    <div class="form-group">
+        <label for="name">Name:</label>
+        <input type="text" id="name" name="name" value="${name}" required>
+    </div>
+    <div class="form-group">
+        <label for="price">Price:</label>
+        <input type="text" id="price" name="price" maxlength="10">
+    </div>
+    <div class="form-group" style="color: red">
+        ${message}
+    </div>
+    <div class="form-group">
+        <button type="submit" name="Add" class="btn btn-sm btn-primary">Add</button>
+    </div>
 </form>
+</div>
 </body>
 </html>

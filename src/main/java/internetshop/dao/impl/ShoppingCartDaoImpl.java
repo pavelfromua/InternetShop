@@ -2,7 +2,6 @@ package internetshop.dao.impl;
 
 import internetshop.dao.ShoppingCartDao;
 import internetshop.db.Storage;
-import internetshop.lib.Dao;
 import internetshop.model.Product;
 import internetshop.model.ShoppingCart;
 import java.util.ArrayList;

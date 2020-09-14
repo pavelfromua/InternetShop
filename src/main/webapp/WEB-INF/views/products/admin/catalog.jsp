@@ -16,19 +16,22 @@
 <jsp:include page="../../header.jsp"/>
 <h2 style="color: cadetblue">All products page</h2>
 
-<table border="1">
+<table class="table table-striped">
+    <thead>
     <tr>
-        <th>№</th>
-        <th>ID</th>
-        <th>Name</th>
-        <th>Price</th>
-        <th>Action</th>
+        <th scope="col">#</th>
+        <th scope="col">ID</th>
+        <th scope="col">Name</th>
+        <th scope="col">Price</th>
+        <th scope="col">Action</th>
     </tr>
+    </thead>
+    <tbody>
     <c:forEach var="product" items="${catalog}" varStatus="i">
         <tr>
-            <td>
+            <th scope="row">
                 <c:out value="${i.index + 1}"/>
-            </td>
+            </th>
             <td>
                 <c:out value="${product.id}"/>
             </td>
@@ -43,6 +46,7 @@
             </td>
         </tr>
     </c:forEach>
+    </tbody>
 </table>
 <a href="${pageContext.request.contextPath}/products/admin/add">Add new product</a>
 </body>
