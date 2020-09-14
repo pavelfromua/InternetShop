@@ -60,9 +60,11 @@ public class UserDaoJdbcImpl implements UserDao {
         String name = resultSet.getString("name");
         String login = resultSet.getString("login");
         String password = resultSet.getString("password");
+        byte[] salt = resultSet.getBytes("salt");
 
         User user = new User(name, login, password);
         user.setId(userId);
+        user.setSalt(salt);
 
         return user;
     }
@@ -102,12 +104,13 @@ public class UserDaoJdbcImpl implements UserDao {
         try (Connection connection = ConnectionUtil.getConnection()) {
             connection.setAutoCommit(false);
 
-            query = "INSERT INTO users (name, login, password) VALUES (?, ?, ?)";
+            query = "INSERT INTO users (name, login, password, salt) VALUES (?, ?, ?, ?)";
             PreparedStatement createUserStatement = connection.prepareStatement(query,
                     Statement.RETURN_GENERATED_KEYS);
             createUserStatement.setString(1, user.getName());
             createUserStatement.setString(2, user.getLogin());
             createUserStatement.setString(3, user.getPassword());
+            createUserStatement.setBytes(4, user.getSalt());
             createUserStatement.executeUpdate();
             ResultSet resultSetUser = createUserStatement.getGeneratedKeys();
             if (resultSetUser.next()) {
