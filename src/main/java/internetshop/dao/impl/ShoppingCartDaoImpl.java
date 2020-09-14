@@ -2,7 +2,6 @@ package internetshop.dao.impl;
 
 import internetshop.dao.ShoppingCartDao;
 import internetshop.db.Storage;
-import internetshop.lib.Dao;
 import internetshop.model.Product;
 import internetshop.model.ShoppingCart;
 import java.util.ArrayList;
@@ -11,7 +10,6 @@ import java.util.Optional;
 import java.util.stream.Collectors;
 import org.apache.log4j.Logger;
 
-@Dao
 public class ShoppingCartDaoImpl implements ShoppingCartDao {
     static final Logger logger = Logger.getLogger(ShoppingCartDaoImpl.class);
 

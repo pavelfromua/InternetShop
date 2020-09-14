@@ -19,50 +19,50 @@
 
 <c:forEach items="${tables}" var="entry">
     <h2 style="color: gray">${entry.key}</h2>
-    <table border="1">
+    <table class="table table-striped">
         <tr>
             <c:if test="${entry.key.equals('Products')}">
-                <th>id</th>
-                <th>name</th>
-                <th>price</th>
+                <th scope="col">id</th>
+                <th scope="col">name</th>
+                <th scope="col">price</th>
             </c:if>
             <c:if test="${entry.key.equals('Users')}">
-                <th>id</th>
-                <th>name</th>
-                <th>login</th>
-                <th>password</th>
+                <th scope="col">id</th>
+                <th scope="col">name</th>
+                <th scope="col">login</th>
+                <th scope="col">password</th>
             </c:if>
             <c:if test="${entry.key.equals('ShoppingCarts')}">
-                <th>id</th>
-                <th>userId</th>
-                <th>products</th>
+                <th scope="col">id</th>
+                <th scope="col">userId</th>
+                <th scope="col">products</th>
             </c:if>
             <c:if test="${entry.key.equals('Orders')}">
-                <th>id</th>
-                <th>userId</th>
-                <th>products</th>
+                <th scope="col">id</th>
+                <th scope="col">userId</th>
+                <th scope="col">products</th>
             </c:if>
         </tr>
         <c:forEach items="${entry.value}" var="item" varStatus="loop">
             <tr>
                 <c:if test="${entry.key.equals('Products')}">
-                    <td>${item.id}</td>
+                    <th scope="row">${item.id}</th>
                     <td>${item.name}</td>
                     <td>${item.price}</td>
                 </c:if>
                 <c:if test="${entry.key.equals('Users')}">
-                    <td>${item.id}</td>
+                    <th scope="row">${item.id}</th>
                     <td>${item.name}</td>
                     <td>${item.login}</td>
                     <td>${item.password}</td>
                 </c:if>
                 <c:if test="${entry.key.equals('ShoppingCarts')}">
-                    <td>${item.id}</td>
+                    <th scope="row">${item.id}</th>
                     <td>${item.userId}</td>
                     <td>${item.products}</td>
                 </c:if>
                 <c:if test="${entry.key.equals('Orders')}">
-                    <td>${item.id}</td>
+                    <th scope="row">${item.id}</th>
                     <td>${item.userId}</td>
                     <td>${item.products}</td>
                 </c:if>

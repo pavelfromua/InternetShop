@@ -16,17 +16,20 @@
 <jsp:include page="../header.jsp"/>
 <h2 style="color: cadetblue">Order ${orderId}</h2>
 
-<table border="1">
+<table class="table table-striped">
+    <thead>
     <tr>
-        <th>№</th>
-        <th>Product</th>
-        <th>Price</th>
+        <th scope="col">#</th>
+        <th scope="col">Product</th>
+        <th scope="col">Price</th>
     </tr>
+    </thead>
+    <tbody>
     <c:forEach var="product" items="${products}" varStatus="i">
         <tr>
-            <td>
+            <th scope="row">
                 <c:out value="${i.index + 1}"/>
-            </td>
+            </th>
             <td>
                 <c:out value="${product.name}"/>
             </td>
@@ -35,6 +38,7 @@
             </td>
         </tr>
     </c:forEach>
+    </tbody>
 </table>
 </body>
 </html>

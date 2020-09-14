@@ -44,7 +44,7 @@ public class ProductDaoJdbcImpl implements ProductDao {
     @Override
     public Optional<Product> get(Long id) {
         Optional<Product> optional = Optional.empty();
-        String query = "SELECT id, name, price FROM products WHERE id = ?";
+        String query = "SELECT product_id, name, price FROM products WHERE product_id = ?";
 
         try (Connection connection = ConnectionUtil.getConnection()) {
             PreparedStatement statement = connection.prepareStatement(query);
@@ -68,13 +68,13 @@ public class ProductDaoJdbcImpl implements ProductDao {
     @Override
     public List<Product> getAll() {
         List<Product> list = new ArrayList<>();
-        String query = "SELECT id, name, price FROM products";
+        String query = "SELECT product_id, name, price FROM products";
 
         try (Connection connection = ConnectionUtil.getConnection()) {
             PreparedStatement statement = connection.prepareStatement(query);
             ResultSet resultSet = statement.executeQuery();
             while (resultSet.next()) {
-                long id = resultSet.getLong("id");
+                long id = resultSet.getLong("product_id");
                 String name = resultSet.getString("name");
                 double price = resultSet.getDouble("price");
 
@@ -91,7 +91,7 @@ public class ProductDaoJdbcImpl implements ProductDao {
 
     @Override
     public Product update(Product product) {
-        String query = "UPDATE products SET name = ?, price = ? WHERE id = ?";
+        String query = "UPDATE products SET name = ?, price = ? WHERE product_id = ?";
 
         try (Connection connection = ConnectionUtil.getConnection()) {
             PreparedStatement statement = connection.prepareStatement(query,
@@ -109,7 +109,7 @@ public class ProductDaoJdbcImpl implements ProductDao {
 
     @Override
     public boolean delete(Long id) {
-        String query = "DELETE FROM products WHERE id = ?";
+        String query = "DELETE FROM products WHERE product_id = ?";
 
         try (Connection connection = ConnectionUtil.getConnection()) {
             PreparedStatement statement = connection.prepareStatement(query,
